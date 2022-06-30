@@ -1,5 +1,4 @@
 import React from 'react';
-import type {Node} from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -19,21 +18,19 @@ interface LoginScreenProps{
 
 const image = { uri: "https://img.wallpapic.com/i4172-129-933/medium/beautiful-sky-nature-mountains-clouds-wallpaper.jpg" };
 
-const Home=(props: LoginScreenProps) =>{
+const Accueil=(props: LoginScreenProps) =>{
 
-  const login = () => props.navigation.navigate('tabs')
-  const register = () => props.navigation.navigate('signup')
 
   return (
     <View style={styles.container}>
        <StatusBar backgroundColor="#fb5b5a"/>
        <ImageBackground source={image} resizeMode="cover" style={styles.image}>
-        <Tabs />
+       
         </ImageBackground>
     </View>
   );
 }
-export default Home;
+export default Accueil;
 const styles = StyleSheet.create({
   container: {
     flex: 1,

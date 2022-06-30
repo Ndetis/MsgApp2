@@ -1,15 +1,16 @@
-import React from 'react';
-import type {Node} from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   SafeAreaView,
   ScrollView,
+  Alert,
   StatusBar,
   StyleSheet,
   Text,Image,ImageBackground,TouchableOpacity,
   useColorScheme,TextInput,
   View,
 } from 'react-native';
-
+import SQLite from 'react-native-sqlite-storage'
+// import {  } from 'react';
 //import { TouchableWithoutFeedback } from 'react-native-web';
 interface LoginScreenProps{
   navigation : any
@@ -17,12 +18,72 @@ interface LoginScreenProps{
 
 const image = { uri: "https://img.wallpapic.com/i4172-129-933/medium/beautiful-sky-nature-mountains-clouds-wallpaper.jpg" };
 
+const db = SQLite.openDatabase(
+  {
+    name : 'sqlitebd',
+    location:'default',
+  },
+  ()=> { },
+error => {console.log(error)}
+  
+)
+
 const Login=(props: LoginScreenProps) =>{
+
+  const [name,setName] = useState('');
+  const [password,setPassword] = useState('');
+
+  useEffect(()=>{
+    createUserTable();
+    getData();
+  },[])
+
+const createUserTable = async () => {
+  db.transaction(tx => {
+    tx.executeSql(`
+      CREATE TABLE IF NOT EXISTS
+      Users
+      (Id INTEGER PRIMARY KEY AUTOINCREMENT, Name TEXT,Surname TEXT,Phone INTEGER,Password TEXT  )
+    `)
+  })
+}
+
+
+  const getData=()=>{
+    try {
+      
+    } catch (error) {
+      
+    }
+  }
+
+  const setData = async () => {
+    if (name.length == 0 || password.length == 0){
+      Alert.alert('Warning!', 'Please fill your informations')
+    }else{
+      try {
+          await  db.transaction(tx => {
+              tx.executeSql(`
+                INSERT INTO Users (Name)
+                VALUES (?)
+              `, [name])
+            })
+            getData();
+          } catch (error) {
+            console.log(error);
+          }
+    }
+
+  }
 
   const login = () => props.navigation.navigate('home')
   const register = () => props.navigation.navigate('signup')
 
   return (
+
+   
+
+
     <View style={styles.container}>
        <StatusBar backgroundColor="#fb5b5a"/>
        <ImageBackground source={image} resizeMode="cover" style={styles.image}>

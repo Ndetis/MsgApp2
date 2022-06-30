@@ -78,6 +78,7 @@ import org.apache.tools.ant.taskdefs.condition.Os
  * ]
  */
 
+
 project.ext.react = [
     enableHermes: false,  // clean and rebuild if changing
 ]
@@ -260,6 +261,10 @@ android {
 }
 
 dependencies {
+    
+    // implementation project(':react-native-contacts')
+
+    
     implementation fileTree(dir: "libs", include: ["*.jar"])
 
     //noinspection GradleDynamicVersion
